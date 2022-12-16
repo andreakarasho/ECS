@@ -39,7 +39,7 @@ namespace ActionGame.ECS
 
             watch = new Stopwatch();
             watch.Start();
-            foreach (Archetype arc in query)
+            foreach (Archetype arc in query) //This should be abstracted as a System in a real implementation
             {
                 int acosCol = arc.componentColumns[2];
                 for (int i = 0; i < arc.entityCount; i++)
@@ -54,10 +54,6 @@ namespace ActionGame.ECS
             }
             watch.Stop();
             Console.WriteLine("ECS Time: " + watch.ElapsedMilliseconds + "ms");
-            
-            while (true){
-
-            }
         }
 
         private class CostlyOperationObject

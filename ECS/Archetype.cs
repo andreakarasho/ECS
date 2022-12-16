@@ -48,6 +48,10 @@ namespace ActionGame.ECS
         }
         public void RemoveComponentsAtRow(int row)
         {
+            /*
+             * Major limitation here: frequently removed/added entities' components
+             * will result in many memory hops in the data. This could be improved upon
+             */
             availEntityRows.Push(row);
             nullRows[row] = true;
             for (int i = 0; i < componentCount; i++)
