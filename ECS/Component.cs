@@ -1,7 +1,7 @@
 ﻿namespace ActionGame.ECS
 {
-    public abstract class Component
+    public interface IComponent
     {
-        public byte componentType;
+        public byte componentType { get; set; }
     }
 }

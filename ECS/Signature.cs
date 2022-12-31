@@ -11,14 +11,16 @@ namespace ActionGame.ECS
         {
             Array.Sort(components);
             this.components = components;
-            for(int i = 0; i < components.Length; i++)
+            for (int i = 0; i < components.Length; i++)
             {
-                if (components[i] > 89) throw new Exception("Component id out of bounds. Cannot exceed 89");
+                if (components[i] > 89)
+                    throw new Exception("Component id out of bounds. Cannot exceed 89");
                 components[i] += 10;
                 id *= 100;
                 id += components[i];
             }
         }
+
         public bool Equals(Signature other)
         {
             return other.id == id;

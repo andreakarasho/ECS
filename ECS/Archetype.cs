@@ -7,7 +7,7 @@ namespace ActionGame.ECS
         public int entityCount;
         public int componentCount;
         public Signature signature;
-        public List<Component>[] componentData;
+        public List<IComponent>[] componentData;
         public Dictionary<byte, int> componentColumns = new Dictionary<byte, int>();
         public List<bool> nullRows = new List<bool>();
         private Stack<int> availEntityRows = new Stack<int>();
@@ -16,21 +16,22 @@ namespace ActionGame.ECS
         {
             componentCount = signature.components.Length;
             this.signature = signature;
-            componentData = new List<Component>[componentCount];
-            for(int i = 0; i < componentCount; i++)
+            componentData = new List<IComponent>[componentCount];
+            for (int i = 0; i < componentCount; i++)
             {
                 componentColumns.Add((byte)(signature.components[i] - 10), i);
-                componentData[i] = new List<Component>();
+                componentData[i] = new List<IComponent>();
             }
         }
-        public int AddEntity(Component[] components) //returns entity row
+
+        public int AddEntity(IComponent[] components) //returns entity row
         {
             entityCount++;
             if (availEntityRows.Count > 0)
             { //assigns to available empty pool row
                 int row = availEntityRows.Pop();
                 nullRows[row] = false;
-                for(int i = 0; i < componentCount; i++)
+                for (int i = 0; i < componentCount; i++)
                 {
                     componentData[i][row] = components[i];
                 }
@@ -46,6 +47,7 @@ namespace ActionGame.ECS
                 return entityCount - 1;
             }
         }
+
         public void RemoveComponentsAtRow(int row)
         {
             /*
